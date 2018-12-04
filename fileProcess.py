@@ -1,6 +1,7 @@
 if __name__ == "__main__":
-    file = open("all.txt", "r")
-    res_file = open("res.txt", "a")
-    res_file.write("\n")
-    for line in file:
-        res_file.write(line)
+    for line in open("read.txt", "rb"):
+        print(line)
+    # file = open("write.txt", "w")
+    # file.write("hello \n")
+    # file.write("word!")
+    # file.close()
