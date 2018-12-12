@@ -28,21 +28,24 @@ def up_tailoring(img, res_path):
 
 
 if __name__ == "__main__":
-    base_dir = "C:\\Users\\chen\\Desktop\\机器人导入\\robot"
+    base_dir = r"C:\Users\chen\Desktop\001-200\001-200"
     listdir = os.listdir(base_dir)
     for parent_dir in listdir:
         if os.path.isfile(parent_dir):
-            print("error:", parent_dir)
+            print("这个路径不是文件夹：", parent_dir)
         else:
             for f in os.listdir(os.path.join(base_dir, parent_dir)):
                 complete_path = os.path.join(base_dir, parent_dir, f)
-                if not os.path.isfile(complete_path):
-                    print("error", complete_path)
-                elif os.path.exists(complete_path):
-                    image_open = Image.open(complete_path)
-                    if image_open.size[0] > image_open.size[1]:
-                        middle_tailoring(image_open, complete_path)
-                    elif image_open.size[0] < image_open.size[1]:
-                        up_tailoring(image_open, complete_path)
-                else:
-                    print("文件不存在：")
+                try:
+                    if not os.path.isfile(complete_path):
+                        print("此文件不存在:", complete_path)
+                    elif os.path.exists(complete_path):
+                        image_open = Image.open(complete_path)
+                        if image_open.size[0] > image_open.size[1]:
+                            middle_tailoring(image_open, complete_path)
+                        elif image_open.size[0] < image_open.size[1]:
+                            up_tailoring(image_open, complete_path)
+                    else:
+                        print("文件不存在：")
+                except Exception as e:
+                    print("处理图片异常：", complete_path)
