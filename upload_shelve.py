@@ -2,16 +2,17 @@ import requests
 import shelve
 import os
 import json
+import  timeit
 
 base_path = r'C:\Users\chen\Desktop\001-200\001-200'
 
 
 def upload(file):
     _files = {"file": (file), "filename": "asdf.png"}
-    _token = "13_111430c1bf2c44cfa8febb781709795f"
+    _token = "16_1a965baf6eb94a4e90a84d04e09a96fe"
     _header = {"X-Token": _token}
-    # result = requests.post("http://manager-api.mapple.fun/upload", files=_files, headers=_header)
-    result = requests.post("http://10.10.32.167:6012/upload", files=_files, headers=_header)
+    result = requests.post("http://manager-api.mapple.fun/upload", files=_files, headers=_header)
+    # result = requests.post("http://10.10.32.167:6012/upload", files=_files, headers=_header, )
     try:
         res = json.loads(result.text)
         return res['dataInfo']
@@ -20,15 +21,25 @@ def upload(file):
         return ''
 
 
-with shelve.open('upload_db') as db:
-    try:
-        count = db['counter']
-    except KeyError:
-        print("计数器为空")
-        count = 0
-    print("初始计数为：",count)
+with shelve.open('unloine upload_db') as db:
+    # try:
+    #     count = db['counter']
+    # except KeyError:
+    #     print("计数器为空")
+
+    # cur = db.get(str('counter'))
+    # if cur:
+    #     print(cur)
+
+    # count = 4662
     # fileList = os.listdir(base_path)
     # for f in fileList:
+    #     print("当前计数：", count)
+    #     cur = db.get(str('counter'))
+    #     if cur:
+    #         print(cur)
+    #         count += 1
+    #         continue
     #     pic_list = []
     #     count += 1
     #     intern_dir = os.path.join(base_path, f)
@@ -42,5 +53,16 @@ with shelve.open('upload_db') as db:
     #     db['counter'] = count
     #     db['list_%s' % count] = pic_list
     #     db['head_%s' % count] = pic_list[0]
+    # 头像
+    # for key, value in db.items():
+    #     if key.startswith("head"):
+    #         print(int(key.split("_")[1]), ',"'+ value+'"')
+    # 图片
     for key, value in db.items():
-        print(key, '    ', value)
+        if key.startswith("list"):
+            id = int(key.split("_")[1])
+            for i, t in enumerate(value):
+                head = 0
+                if i == 0:
+                    head = 1
+                print(id, ',"' + value[i] + '"',',"' + value[i] + '",',head)
