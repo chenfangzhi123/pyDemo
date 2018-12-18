@@ -15,3 +15,8 @@ one_day = datetime.datetime(2008, 8, 20)
 print(one_day + datetime.timedelta(days=10))
 
 
+
+import  time
+
+if __name__ == '__main__':
+    print(time.process_time())
