@@ -3,6 +3,7 @@ import re, fileinput
 if __name__ == '__main__':
     print(re.escape("bt waf sadf?"))
     match = re.match("(bt) waf sadf(\\?)", "bt waf sadf?")
+    print(match.group(0))
     print(match.group(1))
     print(match.group(2))
 
@@ -32,4 +33,3 @@ if __name__ == '__main__':
     match_res = re.match("FROM: (.*) <.*>$", str)
     if match_res:
         print(match_res.group(1))
-    re.sub
