@@ -28,7 +28,7 @@ def up_tailoring(img, res_path):
 
 
 if __name__ == "__main__":
-    base_dir = r"C:\Users\chen\Desktop\001-200\001-200"
+    base_dir = r"C:\Users\chen\Desktop\201-350"
     listdir = os.listdir(base_dir)
     for parent_dir in listdir:
         if os.path.isfile(parent_dir):
@@ -49,3 +49,4 @@ if __name__ == "__main__":
                         print("文件不存在：")
                 except Exception as e:
                     print("处理图片异常：", complete_path)
+                    os.remove(complete_path)
