@@ -8,7 +8,7 @@ warn(){
 # 参数说明
 # $1 ip
 function update(){
-    warn "---->>>>>总数：$total 当前：$i 开始处理 ${ARR[0]} ip: ${ARR[1]}"
+    warn "---->>>>>当前处理文件：$2 总数：$total 当前：$i 开始处理 ${ARR[0]} ip: ${ARR[1]}"
     result=0
     while [[ "$result" != "200"  ]]
     do
@@ -25,9 +25,14 @@ function update(){
             warn "$1 已经是最新版本 跳过<<<<<---------"
             break
         fi
+        if [[ "$check" == "true" ]]
+        then
+            echo "当前服务端口：$port,版本号：$cur_version<<<<<----------"
+            break
+        fi
 
         # 运行部署脚本
-        ssh -tt supertool@$1  "cd \$AUCTION_HOME/bin;nohup bash restart.sh &>/dev/null;sleep 3 "
+#        ssh -tt supertool@$1  "cd \$AUCTION_HOME/bin;nohup bash restart.sh &>/dev/null;sleep 3 "
 
         # 运行测试脚本
         ssh supertool@$1  "bash \$AUCTION_HOME/bin/auto_test.sh"
@@ -57,16 +62,19 @@ function update(){
         fi
     done
 }
-while getopts :v: option
+while getopts :v:c option
 do
     case "$option" in
         v)
             version=$OPTARG
             echo "更新版本号：$version";;
+        c)
+            check="true";;
         \?|:)
             echo "非法参数：$OPTARG"
-            echo "使用说明: [-v version] hosts_list"
+            echo "使用说明: [-v version] [-c] hosts_list"
             echo "-v 版本号（不加则忽略版本直接更新）"
+            echo "-c 检查服务信息 "
             exit 1;;
     esac
 done
@@ -85,7 +93,8 @@ done
 for file in ${files} ; do
     total=`cat ${file}|wc -l`
     declare -i i=0;
-
+    # for-in语句默认以IFS指定的字符为分割，IFS默认包含了tab，空格换行等
+    # 需要重写IFS
     IFS_BAK=$IFS
     IFS=$'\n'
     for host in `cat ${file}`
@@ -94,11 +103,14 @@ for file in ${files} ; do
         IFS=$IFS_BAK
         ARR=($host)
         IFS=$'\n'
-        update ${ARR[1]}  ${ARR[2]}
+        update ${ARR[1]}  $file
     done
     IFS=$IFS_BAK
+    echo -e "\n\n"
 done
 
-
-
+#文件示例
+#h1	192.168.1.1    80
+#h2 192.168.1.2   80
+#h3	192.168.1.3    80
 
