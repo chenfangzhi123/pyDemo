@@ -2,12 +2,13 @@ import re, fileinput
 
 if __name__ == '__main__':
     print(re.escape("bt waf sadf?"))
-    match = re.match("(bt) waf sadf(\\?)", "bt waf sadf?")
+    match = re.match("(bt) waf sadf(\\?)", "bt waf sadf?123")
     print(match.group(0))
     print(match.group(1))
     print(match.group(2))
 
-    groups = match.groups()
+    print(match.groups())
+    print(match.group())
     print(match)
 
     print("重复分组------------")
