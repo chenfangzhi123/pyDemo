@@ -56,7 +56,7 @@ def random_ip():
 
 
 def get_cookie():
-    with open('91_cookie.txt', 'r') as f:
+    with open('collector.cookie', 'r') as f:
         cookies = {}
         for line in f.read().split(';'):
             name, value = line.strip().split('=', 1)  # 1代表只分割一次
