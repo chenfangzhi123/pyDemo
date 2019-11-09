@@ -28,7 +28,7 @@ import logging
 '''
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s  [%(threadName)s]  %(levelname)s  %(filename)s:%('
-                                               'funcName)s:%(lineno)d  - %(message)s')
+                                               'funcName)s:%(lineno)d  - %(message)s', filename="my.log")
 logger = logging.getLogger(__name__)
 
 

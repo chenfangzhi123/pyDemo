@@ -10,7 +10,7 @@ import my_logging
 connect_info = json.load(open('mysql_pass.i.json', 'r'))
 # 连接数据库
 conn = pymysql.connect(host=connect_info['host'], port=connect_info['port'], user=connect_info['user'],
-                       passwd=connect_info['passwd'])
+                       passwd=connect_info['passwd'],autocommit=True)
 cursor = conn.cursor()
 # cursor_execute = cursor.execute("use alpha_robot_chat")
 # print(cursor.execute("select * from customer"))

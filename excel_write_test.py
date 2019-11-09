@@ -2,9 +2,10 @@
 """
 excel操作的示例文件
 """
-import xlwt
 import datetime
 import sys
+
+import xlwt
 
 
 # 字体设置
@@ -19,7 +20,7 @@ def style(bold=False):
 
 def write_excel(file, dsp_name, title, values):  # 写入xls部分
 
-    print dsp_name
+    print(dsp_name)
     # 第二参数用于确认同一个cell单元是否可以重设值。
     sheet1 = file.add_sheet(dsp_name)
 
