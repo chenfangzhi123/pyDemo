@@ -13,7 +13,7 @@ if __name__ == '__main__':
                         result[key] = set([])
                     result[key].add(split[1])
         except Exception as e:
-            print "error:", e
+            print("error:", e)
 
     for key, val in result.iteritems():
         f = open("xunfei" + key, "a")

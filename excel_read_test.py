@@ -14,11 +14,12 @@ def get_merged_high_row(sheet, row_index, col_index):
     for (rlow, rhigh, clow, chigh) in merged:
         if row_index == rlow and col_index == clow:
             return rhigh
-    return row_index
+    # 这里需要注意需要+1
+    return row_index + 1
 
 
 if __name__ == '__main__':
-    connect_info = json.load(open('./spider/mysql_pass.i.json', 'r'))
+    connect_info = json.load(open('mysql_pass.i.json', 'r'))
     # 连接数据库
     conn = pymysql.connect(host=connect_info['host'], port=connect_info['port'], user=connect_info['user'],
                            passwd=connect_info['passwd'], autocommit=True)
